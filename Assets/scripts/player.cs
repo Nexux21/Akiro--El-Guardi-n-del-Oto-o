@@ -28,7 +28,7 @@ public class ejercicio : MonoBehaviour
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
 
-        Vector3 dir = new Vector3(x, y, 0);
+        Vector3 dir = new Vector3(x, 0);
         dir.Normalize();
 
         if (dir != Vector3.zero)

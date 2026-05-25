@@ -2,14 +2,9 @@ using UnityEngine;
 
 public class ejercicio : MonoBehaviour
 {
-    public GameObject target;
     public float HorizontalMovement;
     public float VerticalMovement;
     public float Speed;
-    public float smoothTime = 0.15f;
-    public Vector3 offset = new Vector3(0,0,-10);
-
-    private Vector3 velocity = Vector3.zero;
 
     void Start()
     {
@@ -22,22 +17,9 @@ public class ejercicio : MonoBehaviour
 
 
         MovementPlayer();
-        FollowTarget();
 
 
     }
-
-    public void FollowTarget()
-    {
-        if (target != null);
-        
-        Vector3 targetPosition = target.transform.position + offset;
-        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
-
-
-
-    }
-
     public void MovementPlayer()
 
     {
@@ -46,7 +28,7 @@ public class ejercicio : MonoBehaviour
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
 
-        Vector3 dir = new Vector3(x, 0);
+        Vector3 dir = new Vector3(x, y, 0);
         dir.Normalize();
 
         if (dir != Vector3.zero)

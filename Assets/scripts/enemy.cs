@@ -2,15 +2,40 @@ using UnityEngine;
 
 public class enemy : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+     public GameObject target;
+    public float speed;
+    public float radiusAttack;
+    public float radiusMovement;
+   
     void Start()
     {
         
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        
+        FollowTarget();
+    }
+
+    public void FollowTarget()
+    {
+        Vector3 dir = (target.transform.position - transform.position).normalized;
+
+        if (Vector3.Distance(target.transform.position, transform.position) < radiusMovement)
+        {
+            if (Vector3.Distance(target.transform.position, transform.position) < radiusAttack)
+            {
+                Debug.Log("atacando >:l ");
+
+            }
+            else
+            {
+                transform.position += dir * speed * Time.deltaTime;
+
+
+            }
+        }
     }
 }
+

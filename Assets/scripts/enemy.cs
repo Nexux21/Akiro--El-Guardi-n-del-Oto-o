@@ -31,7 +31,7 @@ public class enemy : MonoBehaviour
             }
             else
             {
-                transform.position -= dir * speed * Time.deltaTime;
+                transform.position += dir * speed * Time.deltaTime;
 
 
             }

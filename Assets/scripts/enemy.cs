@@ -6,7 +6,7 @@ public class enemy : MonoBehaviour
     public float speed;
     public float radiusAttack;
     public float radiusMovement;
-   
+
     void Start()
     {
         
@@ -38,4 +38,5 @@ public class enemy : MonoBehaviour
         }
     }
 }
+
 

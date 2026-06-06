@@ -223,7 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bfc9d9383dea1841990601f343cfa9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::player
-  speed: 10
+  Speed: 15
 --- !u!1 &1048266172
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,8 +254,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6fbf66b5c4aeb241bb5ae8aefe381bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::enemy
-  enemySpeed: 5
-  rangoDeParada: 1
+  Target: {fileID: 125067964}
+  Speed: 5
+  radiusAttack: 2
+  radiusMovement: 3
 --- !u!212 &1048266174
 SpriteRenderer:
   serializedVersion: 2
@@ -480,8 +482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81c38d2378aae834ea47ad8b1a30550c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::camera
-  suavizado: 5
-  distanciaZ: -10
+  Player: {fileID: 125067969}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

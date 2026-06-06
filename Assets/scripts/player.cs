@@ -3,6 +3,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float Speed = 15f;
+    public float health;
 
     void Start()
     {

@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1622670178331587255, guid: c36cecba1be5b924f8142ff37d9bfb4a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.12625
+      objectReference: {fileID: 0}
+    - target: {fileID: 1622670178331587255, guid: c36cecba1be5b924f8142ff37d9bfb4a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.12897
+      objectReference: {fileID: 0}
     - target: {fileID: 2408386125483298021, guid: c36cecba1be5b924f8142ff37d9bfb4a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -48,6 +56,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3871685348605734453, guid: c36cecba1be5b924f8142ff37d9bfb4a, type: 3}
+      propertyPath: m_Name
+      value: bullet
+      objectReference: {fileID: 0}
     - target: {fileID: 4327585600506604709, guid: c36cecba1be5b924f8142ff37d9bfb4a, type: 3}
       propertyPath: m_Name
       value: Circle
@@ -55,5 +67,27 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3871685348605734453, guid: c36cecba1be5b924f8142ff37d9bfb4a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9081231070323955748}
   m_SourcePrefab: {fileID: 100100000, guid: c36cecba1be5b924f8142ff37d9bfb4a, type: 3}
+--- !u!1 &3328492731029555602 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3871685348605734453, guid: c36cecba1be5b924f8142ff37d9bfb4a, type: 3}
+  m_PrefabInstance: {fileID: 1984912948069803943}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9081231070323955748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3328492731029555602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74ba9f8204408a94cad44f6eafbbb86f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Bullet
+  Speed: 15
+  TimeAlive: 3

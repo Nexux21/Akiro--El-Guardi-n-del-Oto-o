@@ -51,6 +51,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            Vector3 spawnPosition = transform.position + (transform.up * 1.5f);
             GameObject bullet = Instantiate(BulletPrefab, transform.position, Quaternion.identity);
             bullet.transform.up = direction;
         }

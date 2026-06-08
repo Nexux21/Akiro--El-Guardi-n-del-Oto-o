@@ -2,13 +2,21 @@ using UnityEngine;
 
 public class enemy2 : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public GameObject Target;
+    public float Speed;
+    public float radiusAttack;
+    public float radiusMovement;
+    public float damage;
+    public bool isAbleToAttack = true;
+    public float maxTime = 2f;
+    public float currentTime;
+   
     void Start()
     {
         
     }
 
-    // Update is called once per frame
+   
     void Update()
     {
         

@@ -11,10 +11,10 @@ public class camera : MonoBehaviour
 
     public void FollowPlayer()
     {
-        transform.position = new Vector3(
-            Player.position.x,
-            Player.position.y,
-            -5
-        );
+       
+        Vector3 desplazamiento = new Vector3(0, 0, -5);
+
+       
+        transform.position = Player.position + desplazamiento;
     }
 }

@@ -1,7 +1,9 @@
 using UnityEngine;
+using UnityEngine.Video;
 
 public class enemy : MonoBehaviour
 {
+    public int Vida = 20;
     public GameObject Target;
     public float Speed;
     public float radiusAttack;
@@ -12,19 +14,38 @@ public class enemy : MonoBehaviour
     public float currentTime;
     void Start()
     {
-
+        if(Target == null)
+        { Target = GameObject.FindGameObjectWithTag("Player"); }
     }
 
     void Update()
     {
+        if (Target == null) return;
         FollowTarget();
-        if (isAbleToAttack)
+        if (!isAbleToAttack)
         {
-            TimerToDoSmt();
+            TimerT();
         }
     }
 
-    public void FollowTarget()
+
+    public void RecibirDano(int cantidad)
+    { 
+           Vida -= cantidad;
+        Debug.Log(gameObject.name + " ha recibido " + cantidad + " de daño. Vida restante: " + Vida);
+        if (Vida <= 0)
+        {
+            Morir();
+        }
+      }
+
+   public void Morir()
+{
+    Debug.Log(gameObject.name + " ha muerto.");
+    Destroy(gameObject);
+}
+
+public void FollowTarget()
     {
         Vector3 targetPos = Target.transform.position;
         Vector3 myPos = transform.position;
@@ -46,11 +67,13 @@ public class enemy : MonoBehaviour
             }
         }
     }
-    public void TimerToDoSmt()
-    {        currentTime += Time.deltaTime;
+    public void TimerT()
+    { 
+        if (this == null) return;
+        currentTime += Time.deltaTime;
         if (currentTime >= maxTime)
         {
-                     isAbleToAttack = true;
+            isAbleToAttack = true;
             currentTime = 0;
         }
         Vector3 dir = (Target.transform.position - transform.position).normalized;

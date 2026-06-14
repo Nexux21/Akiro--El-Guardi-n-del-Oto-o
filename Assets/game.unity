@@ -226,9 +226,12 @@ MonoBehaviour:
   Speed: 15
   health: 0
   maxTime: 10
+  puntosDeAtaque: 10
+  rangoAtaque: 2
   currentTime: 0
   isAbilityAblive: 1
   BulletPrefab: {fileID: 3328492731029555602, guid: ed03901b3a2e84945a24c715668311e5, type: 3}
+  enemyScript: {fileID: 0}
 --- !u!1 &150301723 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8746321522680921777, guid: 0e4e4f428181fa34687790e11c38518a, type: 3}
@@ -253,7 +256,7 @@ MonoBehaviour:
   damage: 5
   isAbleToAttack: 1
   maxTime: 2
-  currentTime: 0
+  currentTime: 5
 --- !u!1 &404521394
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,11 +318,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 941025965613831440, guid: ed03901b3a2e84945a24c715668311e5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.16617
+      value: 11.11
       objectReference: {fileID: 0}
     - target: {fileID: 941025965613831440, guid: ed03901b3a2e84945a24c715668311e5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.93761
+      value: 3.67
       objectReference: {fileID: 0}
     - target: {fileID: 941025965613831440, guid: ed03901b3a2e84945a24c715668311e5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -377,7 +380,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1403167712590299950, guid: b374266d9a6e17d4ca69cf3b00242a10, type: 3}
       propertyPath: m_Name
-      value: Sprite-0001_0
+      value: enemy
       objectReference: {fileID: 0}
     - target: {fileID: 1403167712590299950, guid: b374266d9a6e17d4ca69cf3b00242a10, type: 3}
       propertyPath: m_TagString
@@ -391,6 +394,10 @@ PrefabInstance:
       propertyPath: Target
       value: 
       objectReference: {fileID: 125067964}
+    - target: {fileID: 2484435106127317589, guid: b374266d9a6e17d4ca69cf3b00242a10, type: 3}
+      propertyPath: currentTime
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8850205256374661226, guid: b374266d9a6e17d4ca69cf3b00242a10, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.16617
@@ -645,7 +652,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8746321522680921777, guid: 0e4e4f428181fa34687790e11c38518a, type: 3}
       propertyPath: m_Name
-      value: Sprite-0003_0
+      value: enemy2
       objectReference: {fileID: 0}
     - target: {fileID: 8746321522680921777, guid: 0e4e4f428181fa34687790e11c38518a, type: 3}
       propertyPath: m_TagString

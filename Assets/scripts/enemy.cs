@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -12,14 +13,18 @@ public class enemy : MonoBehaviour
     public bool isAbleToAttack = true;
     public float maxTime = 2f;
     public float currentTime;
+    public bool estaMuerto = false;
     void Start()
     {
         if(Target == null)
-        { Target = GameObject.FindGameObjectWithTag("Player"); }
+        { 
+            Target = GameObject.FindGameObjectWithTag("Player"); 
+        }
     }
 
     void Update()
     {
+        if (estaMuerto) return;
         if (Target == null) return;
         FollowTarget();
         if (!isAbleToAttack)
@@ -31,7 +36,8 @@ public class enemy : MonoBehaviour
 
     public void RecibirDano(int cantidad)
     { 
-           Vida -= cantidad;
+        if (estaMuerto) return;
+        Vida -= cantidad;
         Debug.Log(gameObject.name + " ha recibido " + cantidad + " de daño. Vida restante: " + Vida);
         if (Vida <= 0)
         {
@@ -41,12 +47,14 @@ public class enemy : MonoBehaviour
 
    public void Morir()
 {
-    Debug.Log(gameObject.name + " ha muerto.");
+        estaMuerto = true;
+        Debug.Log(gameObject.name + " ha muerto.");
     Destroy(gameObject);
 }
 
 public void FollowTarget()
     {
+        if (estaMuerto) return;
         Vector3 targetPos = Target.transform.position;
         Vector3 myPos = transform.position;
 
@@ -56,9 +64,11 @@ public void FollowTarget()
             if (Vector3.Distance(targetPos, myPos) < radiusAttack)
             {
                 if (isAbleToAttack)
+                {
                     Debug.Log("dañandote");
-                Target.GetComponent<Player>().health -= damage;
-                isAbleToAttack = false;
+                    Target.GetComponent<Player>().health -= damage;
+                    isAbleToAttack = false;
+                }
             }
             else
             {
@@ -68,8 +78,8 @@ public void FollowTarget()
         }
     }
     public void TimerT()
-    { 
-        if (this == null) return;
+    {
+        if (estaMuerto) return;
         currentTime += Time.deltaTime;
         if (currentTime >= maxTime)
         {
@@ -77,7 +87,9 @@ public void FollowTarget()
             currentTime = 0;
         }
         Vector3 dir = (Target.transform.position - transform.position).normalized;
-        if (Vector3.Distance(Target.transform.position, dir) < radiusAttack)
+        
+        if (Vector3.Distance(Target.transform.position, transform.position) < radiusAttack)
+        
         {
 
         }

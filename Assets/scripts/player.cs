@@ -43,10 +43,10 @@ public class Player : MonoBehaviour
     {
 
         float x = Input.GetAxisRaw("Horizontal");
-        float Y = Input.GetAxisRaw("Vertical");
+        float y = Input.GetAxisRaw("Vertical");
 
 
-        Vector3 dir = new Vector3(x, Y, 0);
+        Vector3 dir = new Vector3(x, y, 0);
         dir.Normalize();
 
         if (dir != Vector3.zero)
@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 spawnPosition = transform.position + (transform.up * 1.5f);
-            GameObject bullet = Instantiate(BulletPrefab, transform.position, Quaternion.identity);
+            GameObject bullet = Instantiate(BulletPrefab, spawnPosition, Quaternion.identity);
             bullet.transform.up = direction;
         }
     }

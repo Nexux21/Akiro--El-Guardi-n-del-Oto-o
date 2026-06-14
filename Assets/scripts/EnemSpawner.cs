@@ -1,4 +1,3 @@
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -26,8 +25,9 @@ public class EnemySpawner : MonoBehaviour
         if (spawnTimer < 0)
         {
 
-            int currentEnemiesCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
-
+            int enemigos1 = GameObject.FindGameObjectsWithTag("Enemy").Length;
+            int enemigos2 = GameObject.FindGameObjectsWithTag("Enemy2").Length;
+            int currentEnemiesCount = enemigos1 + enemigos2;
 
             if (currentEnemiesCount < maxEnemies)
             {

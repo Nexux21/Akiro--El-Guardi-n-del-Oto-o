@@ -57,11 +57,12 @@ public void FollowTarget()
         if (estaMuerto) return;
         Vector3 targetPos = Target.transform.position;
         Vector3 myPos = transform.position;
+        float distancia = Vector3.Distance(targetPos, myPos);
 
         Vector3 direction = (targetPos - myPos).normalized;
-        if (Vector3.Distance(targetPos, myPos) > radiusMovement)
+        if (distancia > radiusMovement)
         {
-            if (Vector3.Distance(targetPos, myPos) < radiusAttack)
+            if (distancia < radiusAttack)
             {
                 if (isAbleToAttack)
                 {

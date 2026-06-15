@@ -12,16 +12,29 @@ public class Switch : MonoBehaviour
     }
     public EnemysType Type;
 
-    public enum CombatAction Action;
+    public enum CombatAction 
     {
       None,
       Attack,
+      Shield,
 
     }
+
+    public CombatAction Action;
     void Start()
     {
         switch (Action)
         {
+            case CombatAction.None:
+                Debug.Log("No action");
+                break;
+            case CombatAction.Attack:
+                Debug.Log("Attack");
+                break;
+            case CombatAction.Shield:
+                Debug.Log("Shield");
+                break;
+
 
 
         }

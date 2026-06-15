@@ -22,12 +22,12 @@ public class Switch : MonoBehaviour
     void Start()
     {
       switch (Action)
-       s
+        {
+          
+        }
 
     }
 
-
-    // Update is called once per frame
     void Update()
     {
         

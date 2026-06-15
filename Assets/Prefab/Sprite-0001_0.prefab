@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8850205256374661226}
   - component: {fileID: 1463504706418847506}
-  - component: {fileID: 2484435106127317589}
   - component: {fileID: 3215263326871302194}
   m_Layer: 0
   m_Name: Sprite-0001_0
@@ -93,28 +92,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &2484435106127317589
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1403167712590299950}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6fbf66b5c4aeb241bb5ae8aefe381bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::enemy
-  Vida: 20
-  Target: {fileID: 0}
-  Speed: 5
-  radiusAttack: 4
-  radiusMovement: 6
-  damage: 5
-  isAbleToAttack: 1
-  maxTime: 2
-  currentTime: 0
-  estaMuerto: 0
 --- !u!61 &3215263326871302194
 BoxCollider2D:
   m_ObjectHideFlags: 0

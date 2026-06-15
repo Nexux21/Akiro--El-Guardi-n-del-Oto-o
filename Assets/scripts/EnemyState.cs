@@ -1,13 +1,12 @@
 using UnityEngine;
 
 public enum EnemyEnum
-{ 
+{
     None,
     Idle,
     Follow,
     Attack,
 }
-
 
 public class EnemyState : MonoBehaviour
 {
@@ -21,7 +20,8 @@ public class EnemyState : MonoBehaviour
     public float maxTime = 2f;
     public float currentTime;
     public bool estaMuerto = false;
-    public EnemyEnum type;
+    public EnemyEnum type = EnemyEnum.Idle; 
+
     void Start()
     {
         if (Target == null)
@@ -32,40 +32,61 @@ public class EnemyState : MonoBehaviour
 
     void Update()
     {
+       
+        if (estaMuerto) return;
+        if (Target == null) return;
+
         Vector3 targetPos = Target.transform.position;
         Vector3 myPos = transform.position;
+        float distancia = Vector3.Distance(targetPos, myPos);
 
+     
         switch (type)
         {
             case EnemyEnum.None:
                 break;
+
             case EnemyEnum.Idle:
-                if (Vector3.Distance(targetPos, myPos) < radiusMovement)
-                    type = EnemyEnum.Follow;
-                break;
-            case EnemyEnum.Follow:
-                Vector3 direction = (targetPos - myPos).normalized;
-                transform.position += direction * Speed * Time.deltaTime;
-
-
-                break;
-            case EnemyEnum.Attack:
-                if (!isAbleToAttack)
+         
+                if (distancia < radiusMovement)
                 {
-                   
+                    type = EnemyEnum.Follow;
                 }
                 break;
-            }
-            if (estaMuerto) return;
-        if (Target == null) return;
-        FollowTarget();
-        if (!isAbleToAttack)
-        {
-            TimerT();
+
+            case EnemyEnum.Follow:
+            
+                FollowTarget();
+
+               
+                if (distancia <= radiusAttack)
+                {
+                    type = EnemyEnum.Attack;
+                }
+                else if (distancia > radiusMovement)
+                {
+                    type = EnemyEnum.Idle;
+                }
+                break;
+
+            case EnemyEnum.Attack:
+    
+                FollowTarget();
+
+                
+                if (!isAbleToAttack)
+                {
+                    TimerT();
+                }
+
+               
+                if (distancia > radiusAttack)
+                {
+                    type = EnemyEnum.Follow;
+                }
+                break;
         }
     }
-    
-
 
     public void RecibirDano(int cantidad)
     {
@@ -85,6 +106,7 @@ public class EnemyState : MonoBehaviour
         Destroy(gameObject);
     }
 
+    
     public void FollowTarget()
     {
         if (estaMuerto) return;
@@ -93,9 +115,12 @@ public class EnemyState : MonoBehaviour
         float distancia = Vector3.Distance(targetPos, myPos);
 
         Vector3 direction = (targetPos - myPos).normalized;
-        if (distancia > radiusMovement)
+
+        
+        if (distancia <= radiusMovement)
         {
-            if (distancia < radiusAttack)
+           
+            if (distancia <= radiusAttack)
             {
                 if (isAbleToAttack)
                 {
@@ -106,11 +131,13 @@ public class EnemyState : MonoBehaviour
             }
             else
             {
-
+              
                 transform.position += direction * Speed * Time.deltaTime;
             }
         }
     }
+
+  
     public void TimerT()
     {
         if (estaMuerto) return;
@@ -120,17 +147,16 @@ public class EnemyState : MonoBehaviour
             isAbleToAttack = true;
             currentTime = 0;
         }
+
         Vector3 dir = (Target.transform.position - transform.position).normalized;
 
         if (Vector3.Distance(Target.transform.position, transform.position) < radiusAttack)
-
         {
-
+            
         }
         else
         {
             transform.position += dir * Speed * Time.deltaTime;
-
         }
     }
 }

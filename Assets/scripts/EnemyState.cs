@@ -1,12 +1,13 @@
 using UnityEngine;
 
 public enum EnemyEnum
-{
+{ 
     None,
     Idle,
     Follow,
     Attack,
 }
+
 
 public class EnemyState : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class EnemyState : MonoBehaviour
     public float maxTime = 2f;
     public float currentTime;
     public bool estaMuerto = false;
+    public EnemyEnum type;
     void Start()
     {
         if (Target == null)
@@ -30,7 +32,31 @@ public class EnemyState : MonoBehaviour
 
     void Update()
     {
-        if (estaMuerto) return;
+        Vector3 targetPos = Target.transform.position;
+        Vector3 myPos = transform.position;
+
+        switch (type)
+        {
+            case EnemyEnum.None:
+                break;
+            case EnemyEnum.Idle:
+                if (Vector3.Distance(targetPos, myPos) < radiusMovement)
+                    type = EnemyEnum.Follow;
+                break;
+            case EnemyEnum.Follow:
+                Vector3 direction = (targetPos - myPos).normalized;
+                transform.position += direction * Speed * Time.deltaTime;
+
+
+                break;
+            case EnemyEnum.Attack:
+                if (!isAbleToAttack)
+                {
+                   
+                }
+                break;
+            }
+            if (estaMuerto) return;
         if (Target == null) return;
         FollowTarget();
         if (!isAbleToAttack)
@@ -38,6 +64,7 @@ public class EnemyState : MonoBehaviour
             TimerT();
         }
     }
+    
 
 
     public void RecibirDano(int cantidad)

@@ -12,21 +12,20 @@ public class Switch : MonoBehaviour
     }
     public EnemysType Type;
 
-    public enum CombatAction Action;
+    public enum CombatAction
     {
-      None,
-      Attack,
+        None,
+        Attack,
 
     }
+    public CombatAction Action;
     void Start()
     {
-        switch (Action)
-        {
-
-
-        }
+      switch (Action)
+       s
 
     }
+
 
     // Update is called once per frame
     void Update()

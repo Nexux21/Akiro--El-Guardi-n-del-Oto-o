@@ -12,36 +12,22 @@ public class Switch : MonoBehaviour
     }
     public EnemysType Type;
 
-    public enum CombatAction 
+    public enum CombatAction
     {
-      None,
-      Attack,
-      Shield,
+        None,
+        Attack,
 
     }
-
     public CombatAction Action;
     void Start()
     {
-        switch (Action)
+      switch (Action)
         {
-            case CombatAction.None:
-                Debug.Log("No action");
-                break;
-            case CombatAction.Attack:
-                Debug.Log("Attack");
-                break;
-            case CombatAction.Shield:
-                Debug.Log("Shield");
-                break;
-
-
-
+          
         }
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         

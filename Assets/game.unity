@@ -386,6 +386,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 1463504706418847506, guid: b374266d9a6e17d4ca69cf3b00242a10, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 110063094613122208, guid: 4429629ce91c13442bf5b45d35926eed, type: 3}
     - target: {fileID: 2484435106127317589, guid: b374266d9a6e17d4ca69cf3b00242a10, type: 3}
       propertyPath: Speed
       value: 0
@@ -399,12 +403,20 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8850205256374661226, guid: b374266d9a6e17d4ca69cf3b00242a10, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.67819446
+      objectReference: {fileID: 0}
+    - target: {fileID: 8850205256374661226, guid: b374266d9a6e17d4ca69cf3b00242a10, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5781075
+      objectReference: {fileID: 0}
+    - target: {fileID: 8850205256374661226, guid: b374266d9a6e17d4ca69cf3b00242a10, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.16617
+      value: 3.29
       objectReference: {fileID: 0}
     - target: {fileID: 8850205256374661226, guid: b374266d9a6e17d4ca69cf3b00242a10, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.93761
+      value: 1.02
       objectReference: {fileID: 0}
     - target: {fileID: 8850205256374661226, guid: b374266d9a6e17d4ca69cf3b00242a10, type: 3}
       propertyPath: m_LocalPosition.z

@@ -2,8 +2,16 @@ using UnityEngine;
 
 public class player : MonoBehaviour
 {
-    [Header("Movimiento")]
-    public float Velocidad = 5f;
+    [Header("Movimiento Lateral")]
+    public float Velocidad = 7f;
+    private float moverX;
+
+    [Header("Salto")]
+    public float FuerzaSalto = 12f;
+    public Transform DetectorSuelo;
+    public LayerMask CapaSuelo;
+    private bool tocandoSuelo;
+    public float RadioDeteccion = 0.2f;
 
     [Header("Ataque a Rango")]
     public GameObject BulletPrefab;
@@ -11,10 +19,38 @@ public class player : MonoBehaviour
     public float TiempoEntreDisparos = 0.2f;
     private float tiempoSiguienteDisparo = 0f;
 
+    public float health = 100f;
+
+    private Rigidbody2D rb;
+    private SpriteRenderer spriteRenderer;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if (rb != null)
+        {
+            rb.freezeRotation = true;
+        }
+    }
+
     void Update()
     {
-        MecanicaMovimiento();
-        MecanicaRotacionMouse();
+        moverX = Input.GetAxisRaw("Horizontal");
+
+        if (moverX > 0.1f) spriteRenderer.flipX = false;
+        else if (moverX < -0.1f) spriteRenderer.flipX = true;
+
+        if (DetectorSuelo != null)
+        {
+            tocandoSuelo = Physics2D.OverlapCircle(DetectorSuelo.position, RadioDeteccion, CapaSuelo);
+        }
+
+        if ((Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.UpArrow)) && tocandoSuelo)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, FuerzaSalto);
+        }
 
         if (Input.GetMouseButton(0) && Time.time >= tiempoSiguienteDisparo)
         {
@@ -23,26 +59,9 @@ public class player : MonoBehaviour
         }
     }
 
-    void MecanicaMovimiento()
+    void FixedUpdate()
     {
-        float moverX = Input.GetAxisRaw("Horizontal");
-        float moverY = Input.GetAxisRaw("Vertical");
-
-        Vector3 direccion = new Vector3(moverX, moverY, 0).normalized;
-        transform.position += direccion * Velocidad * Time.deltaTime;
-    }
-
-    void MecanicaRotacionMouse()
-    {
-        Vector3 posicionMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 direccionMouse = posicionMouse - transform.position;
-        direccionMouse.z = 0;
-
-        if (direccionMouse.magnitude > 0.1f)
-        {
-            float angulo = Mathf.Atan2(direccionMouse.y, direccionMouse.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0, 0, angulo - 90f);
-        }
+        rb.linearVelocity = new Vector2(moverX * Velocidad, rb.linearVelocity.y);
     }
 
     void Disparar()
@@ -51,6 +70,9 @@ public class player : MonoBehaviour
 
         Vector3 posicionOrigen = (PuntoDisparo != null) ? PuntoDisparo.position : transform.position;
 
-        Instantiate(BulletPrefab, posicionOrigen, transform.rotation);
+        float angulo = spriteRenderer.flipX ? 180f : 0f;
+        Quaternion rotacionBala = Quaternion.Euler(0, 0, angulo - 90f);
+
+        Instantiate(BulletPrefab, posicionOrigen, rotacionBala);
     }
 }

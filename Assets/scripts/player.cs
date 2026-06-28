@@ -1,101 +1,56 @@
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class player : MonoBehaviour
 {
-    public float Speed = 15f;
-    public float health = 100f;
-    public float maxTime = 10;
-    public int puntosDeAtaque = 10;
-    public float rangoAtaque = 2f;
-    public float currentTime;
-    public bool isAbilityAblive = true;
+    [Header("Movimiento")]
+    public float Velocidad = 5f;
+
+    [Header("Ataque a Rango")]
     public GameObject BulletPrefab;
-    public enemy enemyScript;
-
-    void Start()
-    {
-        if (enemyScript == null)
-        {
-            enemyScript = FindAnyObjectByType<enemy>();
-        }
-
-    }
-
+    public Transform PuntoDisparo;
+    public float TiempoEntreDisparos = 0.2f;
+    private float tiempoSiguienteDisparo = 0f;
 
     void Update()
     {
+        MecanicaMovimiento();
+        MecanicaRotacionMouse();
 
-        if (!isAbilityAblive)
+        if (Input.GetMouseButton(0) && Time.time >= tiempoSiguienteDisparo)
         {
-            TimerToDoSmt();
-        }
-        MovementPlayer();
-        Shoot();
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SimpleAttack();
-        }
-
-
-    }
-    public void MovementPlayer()
-    {
-
-        float x = Input.GetAxisRaw("Horizontal");
-        float y = Input.GetAxisRaw("Vertical");
-
-
-        Vector3 dir = new Vector3(x, y, 0);
-        dir.Normalize();
-
-        if (dir != Vector3.zero)
-            transform.position += dir * Speed * Time.deltaTime;
-    }
-
-
-    public void Shoot()
-    {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 direction = (mousePos - transform.position);
-        direction.z = 0;
-        direction.Normalize();
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector3 spawnPosition = transform.position;
-            GameObject bullet = Instantiate(BulletPrefab, spawnPosition, Quaternion.identity);
-            bullet.transform.up = direction; bullet.transform.up = direction;
+            Disparar();
+            tiempoSiguienteDisparo = Time.time + TiempoEntreDisparos;
         }
     }
-    public void SimpleAttack()
+
+    void MecanicaMovimiento()
     {
-        if (isAbilityAblive && enemyScript != null)
+        float moverX = Input.GetAxisRaw("Horizontal");
+        float moverY = Input.GetAxisRaw("Vertical");
+
+        Vector3 direccion = new Vector3(moverX, moverY, 0).normalized;
+        transform.position += direccion * Velocidad * Time.deltaTime;
+    }
+
+    void MecanicaRotacionMouse()
+    {
+        Vector3 posicionMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 direccionMouse = posicionMouse - transform.position;
+        direccionMouse.z = 0;
+
+        if (direccionMouse.magnitude > 0.1f)
         {
-            float distancia = Vector3.Distance(transform.position, enemyScript.transform.position);
-            if (distancia <= rangoAtaque)
-            {
-                Debug.Log("Ataque exitoso");
-                enemyScript.RecibirDano(puntosDeAtaque);
-            }
-            else
-            {
-                Debug.Log("El enemigo está fuera de rango");
-            }
-            isAbilityAblive = false;
+            float angulo = Mathf.Atan2(direccionMouse.y, direccionMouse.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0, 0, angulo - 90f);
         }
     }
-    
-    public void TimerToDoSmt()
+
+    void Disparar()
     {
-        currentTime += Time.deltaTime;
-        if (currentTime >= maxTime)
-        {
-            isAbilityAblive = true;
-            currentTime = 0;
-        }
+        if (BulletPrefab == null) return;
+
+        Vector3 posicionOrigen = (PuntoDisparo != null) ? PuntoDisparo.position : transform.position;
+
+        Instantiate(BulletPrefab, posicionOrigen, transform.rotation);
     }
 }
-
-
-

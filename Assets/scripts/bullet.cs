@@ -2,33 +2,45 @@ using UnityEngine;
 
 public class bullet : MonoBehaviour
 {
-    public float Speed = 15f;
-    public float TimeAlive = 3f;
+    public float VelocidadProyectil = 3f;
+    public float TiempoVivo = 3f;
+    public float DañoRango = 5f;
 
     void Start()
     {
-        Destroy(gameObject, TimeAlive);
+        Destroy(gameObject, TiempoVivo);
+    }
+
+    private void OnTriggerEnter2D(Collider2D Colisionador)
+    {
+  
+        if (Colisionador.CompareTag("Enemy") || Colisionador.CompareTag("enemy"))
+        {
+            enemy ComponenteEnemigo = Colisionador.GetComponent<enemy>();
+            if (ComponenteEnemigo != null)
+            {
+                // Aquí puedes restar la vida si tu script 'enemy' tiene una variable de salud
+                // ComponenteEnemigo.VidaEnemigo -= DañoRango; 
+            }
+            Destroy(gameObject);
+            return;
+        }
+
+     
+        if (Colisionador.CompareTag("Enemy2") || Colisionador.CompareTag("enemy2"))
+        {
+            enemy2 ComponenteEnemigo2 = Colisionador.GetComponent<enemy2>();
+            if (ComponenteEnemigo2 != null)
+            {
+                
+            }
+            Destroy(gameObject);
+            return;
+        }
     }
 
     void Update()
     {
-        transform.position += transform.up * Speed * Time.deltaTime;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("enemy"))
-        {
-            Destroy(collision.gameObject);
-            Destroy(gameObject);
-            return;
-        }
-
-        if (collision.gameObject.CompareTag("Enemy2") || collision.gameObject.CompareTag("enemy2"))
-        {
-            Destroy(collision.gameObject);
-            Destroy(gameObject);
-            return;
-        }
+        transform.position += transform.up * VelocidadProyectil * Time.deltaTime;
     }
 }

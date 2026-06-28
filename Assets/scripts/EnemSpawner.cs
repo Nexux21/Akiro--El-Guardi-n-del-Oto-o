@@ -1,64 +1,72 @@
 using UnityEngine;
 
-public class EnemSpawner : MonoBehaviour
+public class EnemySpawner : MonoBehaviour
 {
-    [Header("Prefabs de los Enemigos")]
-    public GameObject EnemyPrefab1; 
-    public GameObject EnemyPrefab2; 
+    public GameObject EnemigoPrefab;
+    public GameObject EnemigoPrefab2;
+    public float GeneradorTiempo = 0.5f;
+    public float Rango = 1.2f;
+    public int MaximodeGeneraciones = 7;
 
-    [Header("Configuración del Generador")]
-    public float spawnInterval = 3f;
-    public int maxEnemies = 10;
-    public float range = 5f;         
-
-    private float spawnTimer;
+    private float tiempoActual;
 
     void Start()
     {
-        spawnTimer = spawnInterval;
+        tiempoActual = GeneradorTiempo;
+
+        int i = 0;
+        while (i < 3)
+        {
+            GeneradorEnemigo();
+            i++;
+        }
     }
 
     void Update()
     {
-        spawnTimer -= Time.deltaTime;
+        MecanicaTiempo();
+    }
 
-        if (spawnTimer <= 0f)
+    public void MecanicaTiempo()
+    {
+        int enemigosActuales = GameObject.FindGameObjectsWithTag("Enemy").Length + GameObject.FindGameObjectsWithTag("Enemy2").Length;
+        if (enemigosActuales >= MaximodeGeneraciones)
         {
-      
-            int totalEnemigos1 = FindObjectsByType<EnemyState>(FindObjectsSortMode.None).Length;
-            int totalEnemigos2 = FindObjectsByType<EnemyState2>(FindObjectsSortMode.None).Length;
+            return;
+        }
 
-            int totalActual = totalEnemigos1 + totalEnemigos2;
-
-            if (totalActual < maxEnemies)
-            {
-                
-                int randomEnemy = Random.Range(0, 2);
-
-                if (randomEnemy == 0)
-                {
-                    SpawnEnemy(EnemyPrefab1);
-                }
-                else
-                {
-                    SpawnEnemy(EnemyPrefab2);
-                }
-            }
-
-           
-            spawnTimer = spawnInterval;
+        tiempoActual -= Time.deltaTime;
+        if (tiempoActual < 0)
+        {
+            GeneradorEnemigo();
+            tiempoActual = 0.5f;
         }
     }
 
-    private void SpawnEnemy(GameObject enemyPrefabToClone)
+    public void GeneradorEnemigo()
     {
-        if (enemyPrefabToClone == null) return;
+        Vector3 DirAleatorio = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0).normalized;
+        Vector3 LargoTotalDireccion = DirAleatorio * Random.Range(0.5f, Rango);
 
-        Vector3 randomDir = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0).normalized;
-        Vector3 spawnOffset = randomDir * Random.Range(1f, range);
-        Vector3 spawnPosition = transform.position + spawnOffset;
+     
+        bool esElPrimero = Random.value > 0.5f;
+        GameObject prefabAEleccionar = esElPrimero ? EnemigoPrefab : EnemigoPrefab2;
 
-        
-        Instantiate(enemyPrefabToClone, spawnPosition, Quaternion.identity);
+        if (prefabAEleccionar == null) return;
+
+        GameObject enemigo = Instantiate(prefabAEleccionar, transform.position, Quaternion.identity);
+        enemigo.transform.position += LargoTotalDireccion;
+
+      
+        if (esElPrimero)
+        {
+            
+            enemigo.transform.localScale = new Vector3(5.0f, 5.0f, 5.0f);
+        }
+        else
+        {
+            
+            enemigo.transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
+        }
     }
 }

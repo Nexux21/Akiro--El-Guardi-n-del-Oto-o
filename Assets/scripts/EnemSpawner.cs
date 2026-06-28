@@ -1,68 +1,64 @@
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemSpawner : MonoBehaviour
 {
-    public GameObject EnemyPrefab1;
-    public GameObject EnemyPrefab2;
-    public float spawnTimer = 0.5f;
-    public float range;
-    public int maxEnemies = 10;
-    public Transform playerTransform;
-    public float distanciaLimite = 5f;
+    [Header("Prefabs de los Enemigos")]
+    public GameObject EnemyPrefab1; 
+    public GameObject EnemyPrefab2; 
 
+    [Header("Configuración del Generador")]
+    public float spawnInterval = 3f;
+    public int maxEnemies = 10;
+    public float range = 5f;         
+
+    private float spawnTimer;
 
     void Start()
     {
-
+        spawnTimer = spawnInterval;
     }
+
     void Update()
     {
-        TimerMechanic();
-    }
-    public void TimerMechanic()
-    {
         spawnTimer -= Time.deltaTime;
-        if (spawnTimer < 0)
+
+        if (spawnTimer <= 0f)
         {
+      
+            int totalEnemigos1 = FindObjectsByType<EnemyState>(FindObjectsSortMode.None).Length;
+            int totalEnemigos2 = FindObjectsByType<EnemyState2>(FindObjectsSortMode.None).Length;
 
-            int enemigos1 = GameObject.FindGameObjectsWithTag("Enemy").Length;
-            int enemigos2 = GameObject.FindGameObjectsWithTag("Enemy2").Length;
-            int currentEnemiesCount = enemigos1 + enemigos2;
+            int totalActual = totalEnemigos1 + totalEnemigos2;
 
-            if (currentEnemiesCount < maxEnemies)
+            if (totalActual < maxEnemies)
             {
-                int randoEnemy = Random.Range(0, 2);
+                
+                int randomEnemy = Random.Range(0, 2);
 
-                if (randoEnemy == 0)
+                if (randomEnemy == 0)
                 {
                     SpawnEnemy(EnemyPrefab1);
                 }
                 else
                 {
-                    GameObject Enemy2 = GameObject.FindGameObjectWithTag("Enemy2");
-                    if (Enemy2 == null)
-                    {
-                        SpawnEnemy(EnemyPrefab2);
-                    }
-                    else if (playerTransform != null)
-                    {
-                        float distanceEnemy2ToPlayer = Vector3.Distance(Enemy2.transform.position, playerTransform.position);
-                        if (distanceEnemy2ToPlayer > distanciaLimite)
-                        {
-                            SpawnEnemy(EnemyPrefab2);
-                        }
-                    }
+                    SpawnEnemy(EnemyPrefab2);
                 }
-                spawnTimer = 2.0f;
             }
+
+           
+            spawnTimer = spawnInterval;
         }
     }
-    public void SpawnEnemy(GameObject enemyPrefabToClone)
+
+    private void SpawnEnemy(GameObject enemyPrefabToClone)
     {
+        if (enemyPrefabToClone == null) return;
+
         Vector3 randomDir = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0).normalized;
-        Vector3 fullLenghtDir = randomDir * Random.Range(0f, range);
-        GameObject enemyInstance = Instantiate(enemyPrefabToClone, transform.position, Quaternion.identity);
-        enemyInstance.transform.position += fullLenghtDir;
+        Vector3 spawnOffset = randomDir * Random.Range(1f, range);
+        Vector3 spawnPosition = transform.position + spawnOffset;
+
+        
+        Instantiate(enemyPrefabToClone, spawnPosition, Quaternion.identity);
     }
 }
-        

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class enemy2 : MonoBehaviour
 {
+    public int Vida = 20; // Agregamos la vida inicial del enemigo marrón
     public GameObject Target;
     public float Speed;
     public float radiusAttack;
@@ -10,6 +11,7 @@ public class enemy2 : MonoBehaviour
     public bool isAbleToAttack = true;
     public float maxTime = 2f;
     public float currentTime;
+
     void Start()
     {
 
@@ -17,6 +19,13 @@ public class enemy2 : MonoBehaviour
 
     void Update()
     {
+        // Si el enemigo se queda sin vida, se destruye y deja de ejecutarse
+        if (Vida <= 0)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         FollowTarget();
         if (!isAbleToAttack)
         {
@@ -33,21 +42,15 @@ public class enemy2 : MonoBehaviour
 
         if (distance < radiusAttack - 0.5f)
         {
-
             Vector3 escapeDirection = (myPos - targetPos).normalized;
-
             transform.position += escapeDirection * Speed * Time.deltaTime;
         }
-
         else if (distance >= radiusAttack && distance < radiusMovement)
         {
             Vector3 followDirection = (targetPos - myPos).normalized;
-
             transform.position += followDirection * Speed * Time.deltaTime;
         }
-
     }
-
 
     public void TimerToDoSmt()
     {
@@ -59,4 +62,3 @@ public class enemy2 : MonoBehaviour
         }
     }
 }
-      

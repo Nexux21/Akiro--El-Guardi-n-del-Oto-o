@@ -125,7 +125,7 @@ public class EnemyState : MonoBehaviour
                 if (isAbleToAttack)
                 {
                     Debug.Log("dañandote");
-                    Target.GetComponent<Player>().health -= damage;
+                    Target.GetComponent<player>().health -= damage;
                     isAbleToAttack = false;
                 }
             }

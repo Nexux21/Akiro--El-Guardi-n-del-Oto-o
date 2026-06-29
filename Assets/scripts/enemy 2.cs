@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class enemy2 : MonoBehaviour
 {
-    public int Vida = 20; // Agregamos la vida inicial del enemigo marrón
+    public int Vida = 20; 
     public GameObject Target;
     public float Speed;
     public float radiusAttack;

@@ -4,17 +4,43 @@ public class camera : MonoBehaviour
 {
     public Transform Player;
 
+    [Header("Límites de la Casa (Primer Piso)")]
+    public float minX = -12f;
+    public float maxX = 12f;
+    public float minY = -2f;
+    public float maxY = 1f;
+
     void Update()
     {
-        FollowPlayer();
+        if (Player != null)
+        {
+            FollowPlayer();
+        }
     }
 
     public void FollowPlayer()
     {
-       
-        Vector3 desplazamiento = new Vector3(0, 0, -5);
+        float targetX = Player.position.x;
+        float targetY = Player.position.y;
 
-       
-        transform.position = Player.position + desplazamiento;
+        if (targetX < minX)
+        {
+            targetX = minX;
+        }
+        if (targetX > maxX)
+        {
+            targetX = maxX;
+        }
+
+        if (targetY < minY)
+        {
+            targetY = minY;
+        }
+        if (targetY > maxY)
+        {
+            targetY = maxY;
+        }
+
+        transform.position = new Vector3(targetX, targetY, -5f);
     }
 }

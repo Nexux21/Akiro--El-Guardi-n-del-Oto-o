@@ -19,7 +19,7 @@ public class enemy2 : MonoBehaviour
 
     void Update()
     {
-        // Si el enemigo se queda sin vida, se destruye y deja de ejecutarse
+        
         if (Vida <= 0)
         {
             Destroy(gameObject);

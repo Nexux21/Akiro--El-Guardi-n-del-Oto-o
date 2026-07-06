@@ -340,7 +340,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c8e7612993b7cb4a900dcccc44714a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  animator: {fileID: 125067974}
   Axetransform: {fileID: 0}
 --- !u!1 &404521394
 GameObject:
@@ -401,11 +400,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 941025965613831440, guid: ed03901b3a2e84945a24c715668311e5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.61854
+      value: 9.38
       objectReference: {fileID: 0}
     - target: {fileID: 941025965613831440, guid: ed03901b3a2e84945a24c715668311e5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.77115
+      value: 4.61
       objectReference: {fileID: 0}
     - target: {fileID: 941025965613831440, guid: ed03901b3a2e84945a24c715668311e5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -449,11 +448,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8515169247889314239, guid: ed03901b3a2e84945a24c715668311e5, type: 3}
       propertyPath: m_SortingOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8515169247889314239, guid: ed03901b3a2e84945a24c715668311e5, type: 3}
       propertyPath: m_SortingLayerID
       value: 383742351
+      objectReference: {fileID: 0}
+    - target: {fileID: 8515169247889314239, guid: ed03901b3a2e84945a24c715668311e5, type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 9081231070323955748, guid: ed03901b3a2e84945a24c715668311e5, type: 3}
       propertyPath: VelocidadProyectil

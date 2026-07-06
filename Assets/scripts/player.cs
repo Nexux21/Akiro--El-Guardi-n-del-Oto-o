@@ -2,16 +2,11 @@ using UnityEngine;
 
 public class player : MonoBehaviour
 {
-    [Header("Movimiento Lateral")]
+    [Header("Movimiento")]
     public float Velocidad = 7f;
-    private float moverX;
-
-    [Header("Salto")]
-    public float FuerzaSalto = 12f;
-    public Transform DetectorSuelo;
-    public LayerMask CapaSuelo;
-    private bool tocandoSuelo;
-    public float RadioDeteccion = 0.2f;
+    private Rigidbody2D rb;
+    private SpriteRenderer spriteRenderer;
+    private Vector2 movimiento;
 
     [Header("Ataque a Rango")]
     public GameObject BulletPrefab;
@@ -19,10 +14,8 @@ public class player : MonoBehaviour
     public float TiempoEntreDisparos = 0.2f;
     private float tiempoSiguienteDisparo = 0f;
 
+    [Header("Estadísticas")]
     public float health = 100f;
-
-    private Rigidbody2D rb;
-    private SpriteRenderer spriteRenderer;
 
     void Start()
     {
@@ -31,26 +24,18 @@ public class player : MonoBehaviour
 
         if (rb != null)
         {
+            rb.gravityScale = 0f;
             rb.freezeRotation = true;
         }
     }
 
     void Update()
     {
-        moverX = Input.GetAxisRaw("Horizontal");
+        movimiento.x = Input.GetAxisRaw("Horizontal");
+        movimiento.y = Input.GetAxisRaw("Vertical");
 
-        if (moverX > 0.1f) spriteRenderer.flipX = false;
-        else if (moverX < -0.1f) spriteRenderer.flipX = true;
-
-        if (DetectorSuelo != null)
-        {
-            tocandoSuelo = Physics2D.OverlapCircle(DetectorSuelo.position, RadioDeteccion, CapaSuelo);
-        }
-
-        if ((Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.UpArrow)) && tocandoSuelo)
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, FuerzaSalto);
-        }
+        if (movimiento.x > 0.1f) spriteRenderer.flipX = false;
+        else if (movimiento.x < -0.1f) spriteRenderer.flipX = true;
 
         if (Input.GetMouseButton(0) && Time.time >= tiempoSiguienteDisparo)
         {
@@ -61,7 +46,7 @@ public class player : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.linearVelocity = new Vector2(moverX * Velocidad, rb.linearVelocity.y);
+        rb.linearVelocity = movimiento.normalized * Velocidad;
     }
 
     void Disparar()

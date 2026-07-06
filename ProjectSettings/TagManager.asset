@@ -44,5 +44,11 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: personajes y enemigos
+    uniqueID: 3464895317
+    locked: 0
+  - name: objetos
+    uniqueID: 383742351
+    locked: 0
   m_RenderingLayers:
   - Default

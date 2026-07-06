@@ -340,7 +340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c8e7612993b7cb4a900dcccc44714a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  animator: {fileID: 0}
+  animator: {fileID: 125067974}
   Axetransform: {fileID: 0}
 --- !u!1 &404521394
 GameObject:

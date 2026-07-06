@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIGameManager : MonoBehaviour
 {
@@ -18,4 +19,6 @@ public class UIGameManager : MonoBehaviour
     {
         Debug.Log("Test Listener");
     }
+
+    //public void GoToScene();
 }

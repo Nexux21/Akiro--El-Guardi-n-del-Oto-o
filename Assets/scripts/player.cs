@@ -16,6 +16,10 @@ public class player : MonoBehaviour
 
     [Header("Estadísticas")]
     public float health = 100f;
+    public float healthMaxima = 100f;
+
+    [Header("UI de Vida")]
+    public Game_Manager_Vida gameManagerVida;
 
     void Start()
     {
@@ -27,6 +31,8 @@ public class player : MonoBehaviour
             rb.gravityScale = 0f;
             rb.freezeRotation = true;
         }
+
+        ActualizarUIVida();
     }
 
     void Update()
@@ -54,10 +60,47 @@ public class player : MonoBehaviour
         if (BulletPrefab == null) return;
 
         Vector3 posicionOrigen = (PuntoDisparo != null) ? PuntoDisparo.position : transform.position;
-
         float angulo = spriteRenderer.flipX ? 180f : 0f;
         Quaternion rotacionBala = Quaternion.Euler(0, 0, angulo - 90f);
 
         Instantiate(BulletPrefab, posicionOrigen, rotacionBala);
+    }
+
+    public void TomarDaño(float cantidad)
+    {
+        health -= cantidad;
+        health = Mathf.Clamp(health, 0, healthMaxima);
+
+        ActualizarUIVida();
+
+        if (health <= 0)
+        {
+            Morir();
+        }
+    }
+
+    public void Curar(float cantidad)
+    {
+        health += cantidad;
+        health = Mathf.Clamp(health, 0, healthMaxima);
+
+        ActualizarUIVida();
+    }
+
+    void ActualizarUIVida()
+    {
+        if (gameManagerVida == null) return;
+
+       
+        float porcentaje = health / healthMaxima;
+        int indiceCorazon = Mathf.RoundToInt(porcentaje * (gameManagerVida.lives.Length - 1));
+
+        gameManagerVida.UpdateLives(indiceCorazon);
+    }
+
+    void Morir()
+    {
+        Debug.Log("El jugador ha muerto");
+     
     }
 }

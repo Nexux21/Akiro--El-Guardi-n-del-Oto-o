@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class enemy2 : MonoBehaviour
 {
-    public int Vida = 20; 
+    public int Vida = 20;
     public GameObject Target;
     public float Speed;
     public float radiusAttack;
@@ -14,12 +14,14 @@ public class enemy2 : MonoBehaviour
 
     void Start()
     {
-
+        if (Target == null)
+        {
+            Target = GameObject.FindGameObjectWithTag("Player");
+        }
     }
 
     void Update()
     {
-        
         if (Vida <= 0)
         {
             Destroy(gameObject);
@@ -27,6 +29,7 @@ public class enemy2 : MonoBehaviour
         }
 
         FollowTarget();
+
         if (!isAbleToAttack)
         {
             TimerToDoSmt();
@@ -37,13 +40,18 @@ public class enemy2 : MonoBehaviour
     {
         Vector3 targetPos = Target.transform.position;
         Vector3 myPos = transform.position;
-
         float distance = Vector3.Distance(targetPos, myPos);
 
         if (distance < radiusAttack - 0.5f)
         {
             Vector3 escapeDirection = (myPos - targetPos).normalized;
             transform.position += escapeDirection * Speed * Time.deltaTime;
+
+            if (isAbleToAttack)
+            {
+                Target.GetComponent<player>().TomarDaño(damage);
+                isAbleToAttack = false;
+            }
         }
         else if (distance >= radiusAttack && distance < radiusMovement)
         {

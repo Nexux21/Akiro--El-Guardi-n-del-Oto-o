@@ -1,12 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
+
 public class Game_Manager_Vida : MonoBehaviour
 {
-
-
+    [Header("Sprites de vida (0 = vacío, 3 = lleno)")]
     public Sprite[] lives;
+
+    [Header("Imagen que muestra el corazón actual")]
     public Image livesImageDisplay;
-    
 
     public void UpdateLives(int currentLives)
     {
@@ -18,11 +19,6 @@ public class Game_Manager_Vida : MonoBehaviour
 
         livesImageDisplay.sprite = lives[currentLives];
     }
-
-    void Update()
-    {
-        
-    }
 }
 
 
@@ -31,25 +27,3 @@ public class Game_Manager_Vida : MonoBehaviour
 
 
 
-/*using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-
-public class BarraVida : MonoBehaviour
-{
-    public Image rellenoBarraVida;
-    private PlayerController playerController;
-    private float vidaMaxima;
-    void Start()
-    {
-        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
-        vidaMaxima = playerController.vida;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        rellenoBarraVida.fillAmount = playerController.vida / vidaMaxima;
-    }
-}

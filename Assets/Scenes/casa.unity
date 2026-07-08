@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 125067975}
   m_Layer: 0
   m_Name: lucas
-  m_TagString: Player
+  m_TagString: player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -232,7 +232,7 @@ MonoBehaviour:
   BulletPrefab: {fileID: 3328492731029555602, guid: ed03901b3a2e84945a24c715668311e5, type: 3}
   PuntoDisparo: {fileID: 0}
   TiempoEntreDisparos: 0.2
-  health: 0
+  health: 100
   healthMaxima: 100
   gameManagerVida: {fileID: 1242557862}
 --- !u!50 &125067972
@@ -6353,9 +6353,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game_Manager_Vida
   lives:
-  - {fileID: 5654700436040041902, guid: ccc5b25a9b44dbc4e913e2095e41fac8, type: 3}
-  - {fileID: 5185432840035080653, guid: ccc5b25a9b44dbc4e913e2095e41fac8, type: 3}
   - {fileID: -1892750308516348459, guid: ccc5b25a9b44dbc4e913e2095e41fac8, type: 3}
+  - {fileID: 5185432840035080653, guid: ccc5b25a9b44dbc4e913e2095e41fac8, type: 3}
+  - {fileID: 5654700436040041902, guid: ccc5b25a9b44dbc4e913e2095e41fac8, type: 3}
   livesImageDisplay: {fileID: 1223869974}
 --- !u!1 &1456571630
 GameObject:
@@ -7486,6 +7486,10 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: -830071979
       objectReference: {fileID: 0}
+    - target: {fileID: 6046259827785766338, guid: 507b9f41412ed644cb35f6e660589a9f, type: 3}
+      propertyPath: Target
+      value: 
+      objectReference: {fileID: 125067964}
     - target: {fileID: 7155054135942937298, guid: 507b9f41412ed644cb35f6e660589a9f, type: 3}
       propertyPath: m_LocalScale.x
       value: 1

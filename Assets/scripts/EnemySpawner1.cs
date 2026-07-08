@@ -1,17 +1,16 @@
 using UnityEngine;
 
-
-public class EnemSpawner2 : MonoBehaviour
+public class EnemySpawner1 : MonoBehaviour
 {
-    public GameObject EnemigoPrefab2;
-    public string TagEnemigo = "Enemy2";
+    public GameObject EnemigoPrefab;
+    public string TagEnemigo = "Enemy";
 
     public float GeneradorTiempo = 0.5f;
     public int MaximodeGeneraciones = 7;
     public int GeneracionesIniciales = 3;
 
-    public float RangoX = 3f;
-    public float DistanciaMinima = 1f;
+    public float RangoX = 3f;          
+    public float DistanciaMinima = 1f; 
 
     private float tiempoActual;
 
@@ -50,18 +49,19 @@ public class EnemSpawner2 : MonoBehaviour
 
     public void GeneradorEnemigo()
     {
-        if (EnemigoPrefab2 == null) return;
+        if (EnemigoPrefab == null) return;
 
+        
         int intentos = 0;
         while (intentos < 10)
         {
             float x = transform.position.x + Random.Range(-RangoX, RangoX);
-            float y = transform.position.y;
+            float y = transform.position.y; 
             Vector3 posicion = new Vector3(x, y, transform.position.z);
 
             if (!HayEnemigoCerca(posicion))
             {
-                Instantiate(EnemigoPrefab2, posicion, Quaternion.identity);
+                Instantiate(EnemigoPrefab, posicion, Quaternion.identity);
                 return;
             }
 
@@ -69,6 +69,7 @@ public class EnemSpawner2 : MonoBehaviour
         }
     }
 
+    
     private bool HayEnemigoCerca(Vector3 posicion)
     {
         GameObject[] enemigos = GameObject.FindGameObjectsWithTag(TagEnemigo);

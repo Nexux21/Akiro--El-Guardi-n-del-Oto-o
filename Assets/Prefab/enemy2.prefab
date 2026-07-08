@@ -84,7 +84,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -5643105228771564274, guid: 1f730a47556a9474ab4f4a0bebfd5f72, type: 3}
+  m_Sprite: {fileID: -8645624015102816573, guid: 10bd90db2351fa64599c8fe418075494, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -132,7 +132,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.62, y: 0.68}
+    oldSize: {x: 1.3913044, y: 1.5652174}
     newSize: {x: 0.62, y: 0.68}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -154,7 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::enemy2
   Vida: 20
   Target: {fileID: 0}
-  Speed: 5
+  Speed: 4
   radiusAttack: 6
   radiusMovement: 10
   damage: 5

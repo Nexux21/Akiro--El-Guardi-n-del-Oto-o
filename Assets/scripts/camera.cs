@@ -1,20 +1,59 @@
 using UnityEngine;
-
 public class camera : MonoBehaviour
 {
     public Transform Player;
 
-    [Header("Límites de la Casa (Primer Piso)")]
+    [Header("Bordes reales del nivel (en unidades del mundo)")]
+    public float nivelMinX = -14f;
+    public float nivelMaxX = 14f;
+    public float nivelMinY = -3f;
+    public float nivelMaxY = 2f;
+
+    [Header("Límites calculados para el centro de la camara")]
     public float minX = -12f;
     public float maxX = 12f;
     public float minY = -2f;
     public float maxY = 1f;
+
+    void Start()
+    {
+        CalcularLimites();
+    }
 
     void Update()
     {
         if (Player != null)
         {
             FollowPlayer();
+        }
+    }
+
+    
+    public void CalcularLimites()
+    {
+        Camera cam = GetComponent<Camera>();
+        if (cam == null) return;
+
+        float mitadAlto = cam.orthographicSize;
+        float mitadAncho = mitadAlto * cam.aspect;
+
+        minX = nivelMinX + mitadAncho;
+        maxX = nivelMaxX - mitadAncho;
+        minY = nivelMinY + mitadAlto;
+        maxY = nivelMaxY - mitadAlto;
+
+        
+        if (minX > maxX)
+        {
+            float centroX = (nivelMinX + nivelMaxX) / 2f;
+            minX = centroX;
+            maxX = centroX;
+        }
+        if (minY > maxY)
+        {
+            float centroY = (nivelMinY + nivelMaxY) / 2f;
+            minY = centroY;
+            maxY = centroY;
         }
     }
 
@@ -31,7 +70,6 @@ public class camera : MonoBehaviour
         {
             targetX = maxX;
         }
-
         if (targetY < minY)
         {
             targetY = minY;
